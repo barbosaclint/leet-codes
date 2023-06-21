@@ -1,4 +1,3 @@
-
 /**
  * Symbol       Value
  * I             1
@@ -10,40 +9,51 @@
  * M             1000
  * For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written as XII,
  * which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
- *
+ * <p>
  * Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII.
  * Instead, the number four is written as IV. Because the one is before the five we subtract it making four.
  * The same principle applies to the number nine, which is written as IX.
  * There are six instances where subtraction is used:
- *
+ * <p>
  * I can be placed before V (5) and X (10) to make 4 and 9.
  * X can be placed before L (50) and C (100) to make 40 and 90.
  * C can be placed before D (500) and M (1000) to make 400 and 900.
  * Given a roman numeral, convert it to an integer.
- *
- *
- *
- * */
+ */
 
 
 public class RomanToInt {
 
-    public static void main(String args[]){
-        String input = "LVIII";
+    public static void main(String args[]) {
+        String input = "MCMXCIV";
         System.out.println("Input: s = \"" + input + "\"");
         System.out.println("Output: " + romanToInt(input));
     }
-    private static int romanToInt(String s){
+
+    private static int romanToInt(String s) {
 
         int sum = 0;
         int currentValue = convertValue(s.charAt(0));
 
-        return 0;
+        for (int i = 1; i < s.length(); i++) {
+            int nextVal = convertValue(s.charAt(i));
+
+            if (currentValue > nextVal) {
+                sum += currentValue;
+            } else {
+                sum -= currentValue;
+            }
+
+            currentValue = nextVal;
+        }
+        sum += currentValue;
+
+        return sum;
     }
 
-    private static int convertValue(char c){
+    private static int convertValue(char c) {
 
-        switch(c) {
+        switch (c) {
             case 'I':
                 return 1;
             case 'V':
